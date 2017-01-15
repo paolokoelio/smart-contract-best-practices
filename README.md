@@ -107,6 +107,30 @@ Additionally, here is a list of Ethereum core developers who may write about sec
 
 Beyond following core developers, it is critical to participate in the wider blockchain-related security community - as security disclosures or observations will come through a variety of parties.
 
+<a name="taxonomy-vulnerabilities"></a>
+
+## Taxonomy of vulnerabilities
+
+This section provides a comprehensive classification of causes of vulnerabilities in smart contracts on three levels:
+
+| Level      | Cause of vulnerability | Example | Attacks |
+|------------|------------------------|---------|---------|
+| Solidity   | Call to the unknown    | [External calls](#avoid-external-calls)        | [Reentrancy](#reentrancy) |
+|            | Gasless send           |         |         |
+|            | Exception disorders    |         |         |
+|            | Type casts             |         |         |
+|            | Reentrancy             |         |         |
+|            | Keeping secrets        |         |         |
+| EVM        | Immutable bugs         |         |         |
+|            | Ether lost in trasfer  |         |         |
+|            | Stack size limit       |         |         |
+| Blockchain | Unpredictable state    |         |         |
+|            | Generating randomness  |         |         |
+|            | Time constraints       |         |         |
+
+###
+
+
 <a name="solidity-tips"></a>
 
 ## Recommendations for Smart Contract Security in Solidity
@@ -364,6 +388,7 @@ function transfer() external {}
 
 One of the major dangers of calling external contracts is that they can take over the control flow, and make changes to your data that the calling function wasn't expecting. This class of bug can take many forms, and both of the major bugs that led to the DAO's collapse were bugs of this sort.
 
+<a name="reentrancy"></a>
 #### Reentrancy
 
 The first version of this bug to be noticed involved functions that could be called repeatedly, before the first invocation of the function was finished. This may cause the different invocations of the function to interact in destructive ways.
